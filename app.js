@@ -17,8 +17,6 @@ var express = require('express')
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
 
-server.listen(DEV_PORT);
-
 // all environments
 app.set('port', process.env.PORT || DEV_PORT);
 app.set('views', __dirname + '/views');
@@ -37,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+server.listen(DEV_PORT);
 
 app.get('/', routes.index);
 app.get('/users', user.list);
