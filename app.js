@@ -9,6 +9,8 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var util = require('util');
+var io = require('socket.io').listen(app.get('port'));
+//var _ = require('underscore');
 
 var app = express();
 
