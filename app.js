@@ -3,19 +3,22 @@
  * Module dependencies.
  */
 
+var PRODUCTION_PORT = 3000;
+
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var util = require('util');
-var io = require('socket.io').listen(app.get('port'));
 //var _ = require('underscore');
 
 var app = express();
 
+var io = require('socket.io').listen(PRODUCTION_PORT);
+
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || PRODUCTION_PORT);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
