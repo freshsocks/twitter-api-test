@@ -3,22 +3,22 @@
  * Module dependencies.
  */
 
-var PRODUCTION_PORT = 3000;
+var DEV_PORT = 3000;
 
-var express = require('express');
+// Init server, express app, and socket. Everyone is listening.
+var app = require('express')()
+  , server = require('http').createServer(app)
+  , io = require('socket.io').listen(server);
+
 var routes = require('./routes');
 var user = require('./routes/user');
-var http = require('http');
 var path = require('path');
 var util = require('util');
 //var _ = require('underscore');
 
-var app = express();
-
-var io = require('socket.io').listen(PRODUCTION_PORT);
 
 // all environments
-app.set('port', process.env.PORT || PRODUCTION_PORT);
+app.set('port', process.env.PORT || DEV_PORT);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -39,6 +39,13 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+
 // Twitter routing
 // twit.get('/statuses/show/27593302936.json', {include_entities:true}, function(data) {
 //     console.log(util.inspect(data));
@@ -46,6 +53,6 @@ app.get('/users', user.list);
 
 
 
-http.createServer(app).listen(app.get('port'), function(){
-	console.log('Express server listening on port ' + app.get('port'));
-});
+// http.createServer(app).listen(app.get('port'), function(){
+// 	console.log('Express server listening on port ' + app.get('port'));
+// });
