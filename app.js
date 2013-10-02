@@ -5,18 +5,19 @@
 
 var DEV_PORT = 3000;
 
-// Init server, express app, and socket. Everyone is listening.
-var express = require('express')
-  , app = express()
-  , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
-
 var routes = require('./routes');
 var user = require('./routes/user');
 var path = require('path');
 var util = require('util');
 //var _ = require('underscore');
 
+// Init server, express app, and socket. Everyone is listening.
+var express = require('express')
+  , app = express()
+  , server = require('http').createServer(app)
+  , io = require('socket.io').listen(server);
+
+server.listen(DEV_PORT);
 
 // all environments
 app.set('port', process.env.PORT || DEV_PORT);
