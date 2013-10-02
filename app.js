@@ -53,8 +53,9 @@ app.get('/users', user.list);
 
 io.sockets.on('connection', function (socket) {
 	console.log('HANDSHAKE MADE!');
+
 	socket.on('get-twitter-stream', function(){
-		twit.stream('statuses/filter', { track : '#nodejs' }, function(stream) {
+		twit.stream('statuses/samples', function(stream) {
 			console.log('statuses/filter: waiting...');
 			stream.on('data', function (data) {
 				console.log(util.inspect(data));
