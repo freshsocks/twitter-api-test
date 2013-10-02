@@ -9,6 +9,14 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var path = require('path');
 var util = require('util');
+var twitter = require('twitter');
+var twit = new twitter({
+    consumer_key: 'mYVqwQEonkbBww11sMg',
+    consumer_secret: 'BVRyXDr7PxPkwh74cM0K8DTQaxmiNCvNGdQ80mCE8',
+    access_token_key: '86416702-duXu6pIFjFzxq2yN2V71jsydxXo10hJhOlxCw1mIJ',
+    access_token_secret: 'w6VC6eBJUsmRn51mZk5n0hj1A4Dd6dS4FMVo1lKNA'
+});
+
 //var _ = require('underscore');
 
 // Init server, express app, and socket. Everyone is listening.
@@ -44,11 +52,24 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 io.sockets.on('connection', function (socket) {
-	console.log('socket connection made!');
-	socket.emit('news', { hello: 'world' });
-	socket.on('my other event', function (data) {
-		console.log(data);
+	console.log('HANDSHAKE MADE!');
+	twit.stream('statuses/filter', { track : '#nodejs' }, function(stream) {
+		console.log('statuses/filter: waiting...');
+		stream.on('data', function (data) {
+			console.log(util.inspect(data));
+			socket.emit('twitter-data-update', { data : data });
+		});
+		//Disconnect stream after five seconds
+		// setTimeout(function(){
+		// 	stream.destroy;
+		// 	console.log('Timed Out');
+		// 	res.render('index', { title: 'Twitter API test! ERROR!'});
+		// }, 5000);
 	});
+	//socket.emit('news', { hello: 'world' });
+	// socket.on('my other event', function (data) {
+	// 	console.log(data);
+	// });
 });
 
 // Twitter routing
