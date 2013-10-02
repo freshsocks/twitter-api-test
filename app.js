@@ -13,9 +13,9 @@ var util = require('util');
 
 // Init server, express app, and socket. Everyone is listening.
 var express = require('express')
-  , app = express()
-  , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+	, app = express()
+	, server = require('http').createServer(app)
+	, io = require('socket.io').listen(server);
 
 // all environments
 app.set('port', process.env.PORT || DEV_PORT);
@@ -28,7 +28,7 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
-app.use(require('stylus').middleware(__dirname + '/public'));
+app.use(require('stylus').middleware(__dirname + '/public/css'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
@@ -42,10 +42,11 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+	console.log('socket connection made!');
+	socket.emit('news', { hello: 'world' });
+	socket.on('my other event', function (data) {
+		console.log(data);
+	});
 });
 
 // Twitter routing
