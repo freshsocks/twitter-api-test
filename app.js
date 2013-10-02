@@ -53,19 +53,22 @@ app.get('/users', user.list);
 
 io.sockets.on('connection', function (socket) {
 	console.log('HANDSHAKE MADE!');
-	twit.stream('statuses/filter', { track : '#nodejs' }, function(stream) {
-		console.log('statuses/filter: waiting...');
-		stream.on('data', function (data) {
-			console.log(util.inspect(data));
-			socket.emit('twitter-data-update', { data : data });
-		});
+	socket.on('get-twitter-stream', function(){
+		twit.stream('statuses/filter', { track : '#nodejs' }, function(stream) {
+			console.log('statuses/filter: waiting...');
+			stream.on('data', function (data) {
+				console.log(util.inspect(data));
+				socket.emit('twitter-data-update', { data : data });
+			});
 		//Disconnect stream after five seconds
 		// setTimeout(function(){
 		// 	stream.destroy;
 		// 	console.log('Timed Out');
 		// 	res.render('index', { title: 'Twitter API test! ERROR!'});
 		// }, 5000);
+		});
 	});
+	
 	//socket.emit('news', { hello: 'world' });
 	// socket.on('my other event', function (data) {
 	// 	console.log(data);

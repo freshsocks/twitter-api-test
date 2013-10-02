@@ -5,6 +5,7 @@ $( document ).ready(function() {
 	// 	console.log(data);
 	// 	socket.emit('my other event', { my: 'data' });
 	// });
+	socket.emit('get-twitter-stream');
 	socket.on('twitter-data-update', function (data) {
 		console.log(data);
 	});
