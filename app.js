@@ -61,18 +61,9 @@ io.sockets.on('connection', function (socket) {
 			trim_user : true,
 			exclude_replies : true
 		};
-		twit.get('/statuses/user_timeline.json', params, function(stream) {
-			console.log('statuses/filter: waiting...');
-			stream.on('data', function (data) {
+		twit.get('/statuses/user_timeline.json', params, function (data) {
 				console.log(util.inspect(data));
 				socket.emit('twitter-data-update', { data : data });
-			});
-		//Disconnect stream after five seconds
-		// setTimeout(function(){
-		// 	stream.destroy;
-		// 	console.log('Timed Out');
-		// 	res.render('index', { title: 'Twitter API test! ERROR!'});
-		// }, 5000);
 		});
 	});
 	
