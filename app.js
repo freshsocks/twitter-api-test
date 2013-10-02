@@ -55,7 +55,13 @@ io.sockets.on('connection', function (socket) {
 	console.log('HANDSHAKE MADE!');
 
 	socket.on('get-twitter-stream', function(){
-		twit.stream('statuses/samples', function(stream) {
+		var params = {
+			screen_name : 'yaboybillnye',
+			count : 50,
+			trim_user : true,
+			exclude_replies : true
+		};
+		twit.get('/statuses/user_timeline.json', params, function(stream) {
 			console.log('statuses/filter: waiting...');
 			stream.on('data', function (data) {
 				console.log(util.inspect(data));
