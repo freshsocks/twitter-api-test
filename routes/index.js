@@ -17,11 +17,11 @@ exports.index = function(req, res){
 			console.log(util.inspect(data));
 			res.render('index', { title: 'Twitter API test!'});
 		});
-	    // Disconnect stream after five seconds
-	    // setTimeout(function(){
-	    // 	stream.destroy;
-	    // 	console.log('Timed Out');
-	    // 	res.render('index', { title: 'Twitter API test! ERROR!'});
-	    // }, 10000);
+		//Disconnect stream after five seconds
+		setTimeout(function(){
+			stream.destroy;
+			console.log('Timed Out');
+			res.render('index', { title: 'Twitter API test! ERROR!'});
+		}, 5000);
 	});
 };
