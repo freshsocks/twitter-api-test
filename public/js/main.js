@@ -11,7 +11,8 @@ $( document ).ready(function() {
 		socket.emit('get-twitter-stream', { username : username } );
 	});
 	
-	socket.on('twitter-data-update', function (data) {
+	socket.on('twitter-data-update', function (_data) {
+		var data = _data;
 		console.log(data);
 		$('#tweets').html('');
 		$.each(data['tweets'], function (i, tweet){
