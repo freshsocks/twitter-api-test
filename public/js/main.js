@@ -8,7 +8,7 @@ $( document ).ready(function() {
 	socket.emit('get-twitter-stream');
 	socket.on('twitter-data-update', function (data) {
 		console.log(data);
-		$.each(data, function (i, tweet){
+		$.each(data['data'], function (i, tweet){
 			$('#tweets').append('<p>'+tweet.text+'</p>');
 		});
 	});
