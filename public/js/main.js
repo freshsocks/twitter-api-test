@@ -8,7 +8,7 @@ $( document ).ready(function() {
 	$('#getTweetsButton').on('click', function(){
 		var username = $('#username').html();
 		socket.emit('get-twitter-stream', { username : username } );
-	})
+	});
 	
 	socket.on('twitter-data-update', function (data) {
 		console.log(data['data']);
