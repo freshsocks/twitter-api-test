@@ -5,7 +5,11 @@ $( document ).ready(function() {
 	// 	console.log(data);
 	// 	socket.emit('my other event', { my: 'data' });
 	// });
-	socket.emit('get-twitter-stream');
+	$('#getTweetsButton').on('click', function(){
+		var username = $('#username').html();
+		socket.emit('get-twitter-stream', { username : username } );
+	})
+	
 	socket.on('twitter-data-update', function (data) {
 		console.log(data);
 		$.each(data['data'], function (i, tweet){

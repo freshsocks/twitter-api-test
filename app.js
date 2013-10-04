@@ -54,9 +54,9 @@ app.get('/users', user.list);
 io.sockets.on('connection', function (socket) {
 	console.log('HANDSHAKE MADE!');
 
-	socket.on('get-twitter-stream', function(){
+	socket.on('get-twitter-stream', function(username){
 		var params = {
-			screen_name : 'yaboybillnye',
+			screen_name : username,
 			count : 50,
 			trim_user : true,
 			exclude_replies : true
