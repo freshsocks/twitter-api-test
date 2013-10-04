@@ -54,14 +54,14 @@ app.get('/users', user.list);
 io.sockets.on('connection', function (socket) {
 	console.log('HANDSHAKE MADE!');
 
-	socket.on('get-twitter-stream', function (username){
+	socket.on('get-twitter-stream', function (data){
 		var params = {
-			screen_name : username,
+			screen_name : data.username,
 			count : 20,
 			trim_user : true,
 			exclude_replies : true
 		};
-		console.log("Username: "+username);
+		console.log("Username: "+data.username);
 		twit.get('/statuses/user_timeline.json', params, function (tweets) {
 				console.log("twit.get > tweets\n"+util.inspect(tweets));
 				socket.emit('twitter-data-update', { tweets : tweets });
