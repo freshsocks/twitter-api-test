@@ -11,7 +11,8 @@ $( document ).ready(function() {
 	})
 	
 	socket.on('twitter-data-update', function (data) {
-		console.log(data);
+		console.log(data['data']);
+			$('#tweets').html('');
 		$.each(data['data'], function (i, tweet){
 			$('#tweets').append('<p>'+tweet.text+'</p>');
 		});
