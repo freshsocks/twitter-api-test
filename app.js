@@ -64,7 +64,7 @@ io.sockets.on('connection', function (socket) {
 		console.log("Username: "+data.username);
 		twit.get('/statuses/user_timeline.json', params, function (tweets) {
 				console.log("twit.get > tweets\n"+util.inspect(tweets));
-				socket.emit('twitter-data-update', { tweets });
+				socket.emit('twitter-data-update', tweets );
 		});
 	});
 	
