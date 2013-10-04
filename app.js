@@ -61,8 +61,9 @@ io.sockets.on('connection', function (socket) {
 			trim_user : true,
 			exclude_replies : true
 		};
+		console.log(username);
 		twit.get('/statuses/user_timeline.json', params, function (tweets) {
-				//console.dir(util.inspect(data[data]));
+				console.log(util.inspect(tweets['data']));
 				socket.emit('twitter-data-update', { tweets : tweets['data'] });
 		});
 	});
