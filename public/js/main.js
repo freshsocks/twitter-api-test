@@ -7,13 +7,14 @@ $( document ).ready(function() {
 	// });
 	$('#getTweetsButton').on('click', function(){
 		var username = $('#username').html();
+		console.log(username);
 		socket.emit('get-twitter-stream', { username : username } );
 	});
 	
-	socket.on('twitter-data-update', function (data) {
-		console.log(data['data']);
-			$('#tweets').html('');
-		$.each(data['data'], function (i, tweet){
+	socket.on('twitter-data-update', function (tweets) {
+		console.log('Got Tweets.');
+		$('#tweets').html('');
+		$.each(tweets, function (i, tweet){
 			$('#tweets').append('<p>'+tweet.text+'</p>');
 		});
 	});
