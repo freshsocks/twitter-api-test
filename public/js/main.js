@@ -12,7 +12,7 @@ $( document ).ready(function() {
 	});
 	
 	socket.on('twitter-data-update', function (tweets) {
-		console.log('Got Tweets.');
+		console.log(tweets);
 		$('#tweets').html('');
 		$.each(tweets, function (i, tweet){
 			$('#tweets').append('<p>'+tweet.text+'</p>');
