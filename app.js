@@ -54,33 +54,17 @@ app.get('/users', user.list);
 io.sockets.on('connection', function (socket) {
 	console.log('HANDSHAKE MADE!');
 
-	socket.on('get-twitter-stream', function (data){
+	socket.on('get-twitter-stream', function (username){
 		var params = {
-			screen_name : data.username,
+			screen_name : username,
 			count : 20,
 			trim_user : true,
 			exclude_replies : true
 		};
-		console.log("Username: "+data.username);
+		console.log("Username: "+username);
 		twit.get('/statuses/user_timeline.json', params, function (tweets) {
 				console.log("twit.get > tweets\n"+util.inspect(tweets));
 				socket.emit('twitter-data-update', tweets );
 		});
 	});
-	
-	//socket.emit('news', { hello: 'world' });
-	// socket.on('my other event', function (data) {
-	// 	console.log(data);
-	// });
 });
-
-// Twitter routing
-// twit.get('/statuses/show/27593302936.json', {include_entities:true}, function(data) {
-//     console.log(util.inspect(data));
-// });
-
-
-
-// http.createServer(app).listen(app.get('port'), function(){
-// 	console.log('Express server listening on port ' + app.get('port'));
-// });
