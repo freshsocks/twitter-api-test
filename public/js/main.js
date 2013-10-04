@@ -11,11 +11,10 @@ $( document ).ready(function() {
 		socket.emit('get-twitter-stream', { username : username } );
 	});
 	
-	socket.on('twitter-data-update', function (_data) {
-		var data = _data;
-		console.log(data);
+	socket.on('twitter-data-update', function (tweets) {
+		console.log(tweets);
 		$('#tweets').html('');
-		$.each(data['tweets'], function (i, tweet){
+		$.each(tweets, function (i, tweet){
 			$('#tweets').append('<p>'+tweet.text+'</p>');
 		});
 	});
