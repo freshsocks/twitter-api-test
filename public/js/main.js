@@ -6,7 +6,7 @@ $( document ).ready(function() {
 	// 	socket.emit('my other event', { my: 'data' });
 	// });
 	$('#getTweetsButton').on('click', function(){
-		var username = $('#username').html();
+		var username = $('#username').val();
 		console.log(username);
 		socket.emit('get-twitter-stream', { username : username } );
 	});
