@@ -62,7 +62,7 @@ io.sockets.on('connection', function (socket) {
 			exclude_replies : true
 		};
 		twit.get('/statuses/user_timeline.json', params, function (data) {
-				console.log(util.inspect(data));
+				console.dir(util.inspect(data));
 				socket.emit('twitter-data-update', { data : data });
 		});
 	});
