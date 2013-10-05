@@ -5,3 +5,9 @@ body {
 a {
   color: #00b7ff;
 }
+#tweets p {
+  padding: 10px;
+  margin: 3px;
+  background: #eee;
+  border-radius: 3px;
+}
